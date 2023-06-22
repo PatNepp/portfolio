@@ -1,5 +1,8 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 
 const linkInfo = [
     {text: 'Home', href: '/'},
@@ -8,16 +11,19 @@ const linkInfo = [
 ]
 
 const Navbar = () => {
+    const pathname = usePathname()
+    console.log('pathname:', pathname)
+
   return (
-    <nav>
-        <div>
-            <h1>PN</h1>
+    <nav className="flex justify-between h-12 p-10 items-center">
+        <div className="p-5 bg-gradient-to-r from-primary to-text-light rounded-full">
+            <h1 className="text-lg text-white">PN</h1>
         </div>
-        <div>
-            <ul>
+        <div className="flex">
+            <ul className="flex gap-6">
             {
                 linkInfo.map((info) => (
-                    <li key={info.text}>
+                    <li className={`${pathname === info.href ? 'text-primary' : 'text-text-primary'} text-xs font-bold uppercase`} key={info.text}>
                         <Link href={info.href}>
                             {info.text}
                         </Link>
@@ -25,9 +31,9 @@ const Navbar = () => {
                 ))
             }
             </ul>
-            <button>
+            <button className="flex ml-6">
                 <Image src='/assets/download.png' width={12} height={12} alt='download'/>
-                Resume
+                <p className="text-black text-xs font-bold uppercase ml-1">Resume</p>
             </button>
         </div>
     </nav>
